@@ -23,7 +23,7 @@ The firmware is a **PlatformIO project for Visual Studio Code**. All board setti
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [PlatformIO IDE extension](https://platformio.org/platformio-ide) for VS Code (when you open the project, VS Code also suggests the pioarduino fork via `Firmware/.vscode/extensions.json` - both work)
-- USB-C cable (data capable)
+- USB-C cable
 - The `Firmware/` folder of this repository
 
 The VS Code configuration in `Firmware/.vscode/extensions.json` additionally recommends the ESP exception decoder (`Jason2866.esp-decoder`), which is very helpful for decoding crash backtraces from the serial log.

@@ -1,8 +1,8 @@
 # XT90 Power Meter
 
-Precision high-current power meter with electronic fuse (eFuse), PWM dimmer and constant-current / constant-power regulation, built around an ESP32-S3 and the INA228 shunt monitor. Designed for continuous currents up to 50 A.
+Precision high-current power meter with electronic fuse (eFuse) functionality, PWM dimmer and constant-current / constant-power regulation, built around an ESP32-S3 and the INA228 main measuring IC. Designed for continuous currents up to 50 A.
 
-The device measures voltage, current, power and temperature in real time, switches the load through two N-channel MOSFETs, and provides a complete web interface plus a 100 Hz JSON serial telemetry stream.
+The device measures voltage, current, power and temperature in real time, switches the load through two parallel MOSFETs, and provides a complete web interface plus a 100 Hz JSON serial telemetry stream.
 
 <!-- HERO IMAGE -->
 <p align="center">
@@ -41,14 +41,13 @@ The device measures voltage, current, power and temperature in real time, switch
 - Limits: max current, max voltage, min voltage, max temperature
 - Configurable trip delay (software time-based fuse)
 - Trip report with fault reason, fault values and output runtime before the trip
-- Reset via web interface, serial console, or long-press of the boot button
-- MOSFETs off on boot; output state fully software-controlled
+- Reset via web interface, serial console, or long-press of the user/boot button
 
 ### PWM Dimmer
 
 - 10-bit PWM output, frequency configurable from 100 Hz to 30 kHz
 - Smooth gauge and live slider in the web interface
-- Closed-loop regulators: constant current (CC) and constant power (CP) via P-controller
+- Closed-loop regulators: optinal constant current (CC) and constant power (CP) via P-controller
 
 ### Data Logger
 
@@ -61,7 +60,7 @@ The device measures voltage, current, power and temperature in real time, switch
 ### Calibration
 
 - Browser-based two-step calibration wizard (reference value vs. raw value)
-- Separate calibration factors for voltage and current, stored in EEPROM
+- Separate calibration factors for voltage and current, stored in flash
 
 ### System
 
@@ -70,29 +69,28 @@ The device measures voltage, current, power and temperature in real time, switch
 - IIR smoothing filters for voltage and current
 - Configurable status LED (brightness, on/off), boot button enable
 - Default-output and auto-logging behavior on boot
-- Full settings persistence in EEPROM with CRC16 validation
+- Full settings persistence in flash with CRC16 validation
 - UI languages: German / English
 
 ---
 
 ## Hardware
 
+<p align="center">
+<img src="images/pcb.jpg" alt="XT90 Power Meter - assembled pcb" width="800">
+</p>
+
 ### Overview
 
-| Component       | Part                         | Function                     |
-| --------------- | ---------------------------- | ---------------------------- |
-| Microcontroller | ESP32-S3-MINI-1-N8           | WiFi AP, web server, control |
-| Measurement IC  | INA228 (TI, VSSOP-10)        | 20-bit shunt monitor, I2C    |
-| Shunt           | 0.5 mOhm (5930 package)      | Current sensing up to 50 A   |
-| Power MOSFETs   | 2x CMSL012N10 (TOLL)         | Load switch                  |
-| Gate driver     | UCC27517A (SOT-23-5)         | MOSFET gate drive            |
-| Buck 12 V       | LM5164 (SO-8)                | Input supply from VIN        |
-| Buck 3.3 V      | TPS629206 (SOT-583)          | MCU / sensor supply          |
-| Input           | XT90PW panel-mount connector | VIN                          |
-| Output          | XT90PW cable connector       | VOUT                         |
-| USB-C           | 16-pin                       | Programming / serial console |
-
-The board accepts a single supply rail (VIN) and generates 12 V and 3.3 V on board. The load is switched on the low side by two paralleled TOLL MOSFETs driven by a dedicated gate driver.
+| Component       | Part                    | Function                     |
+| --------------- | ----------------------- | ---------------------------- |
+| Microcontroller | ESP32-S3-MINI-1-N8      | WiFi AP, web server, control |
+| Measurement IC  | INA228 (TI, VSSOP-10)   | 20-bit shunt monitor, I2C    |
+| Shunt           | 0.5 mOhm (5930 package) | Current sensing up to 50 A   |
+| Power MOSFETs   | 2x CMSL012N10 (TOLL)    | Load switch                  |
+| Gate driver     | UCC27517A (SOT-23-5)    | MOSFET gate drive            |
+| Buck 12 V       | LM5164 (SO-8)           | Input supply from VIN        |
+| Buck 3.3 V      | TPS629206 (SOT-583)     | MCU / sensor supply          |
 
 ### Pinout (ESP32-S3)
 
@@ -118,13 +116,18 @@ All hardware files are located in the `PCB/` folder:
 
 ### Enclosure
 
+<!-- CASE IMAGE -->
+<p align="center">
+<img src="images/case.jpg" alt="XT90 Power Meter - Case" width="800">
+</p>
+
 The 3D-printable enclosure is included as a 3MF file directly in the repository root. It snaps onto the PCB edge without screws and provides openings for both XT90 connectors, the USB-C port and the status LED.
 
-| Property       | Recommendation               |
-| -------------- | ---------------------------- |
-| File           | `Case.3mf` (repository root) |
-| Material       | PETG or ABS                  |
-| Print settings | 3 perimeters, 40 % infill    |
+| Property       | Recommendation                |
+| -------------- | ----------------------------- |
+| File           | `Case.3mf` (repository root)  |
+| Material       | PETG                          |
+| Print settings | Extra Fine 0.08mm No Supports |
 
 ---
 
@@ -163,7 +166,7 @@ The 3D-printable enclosure is included as a 3MF file directly in the repository 
 
 A significant portion of the firmware was created with the assistance of generative AI tools. It works and has been tested on real hardware, but it should be seen as a solid starting point rather than a finished, peer-reviewed product.
 
-I am not a professional software developer, and I am happy about every contribution. If you are a software developer and spot weak spots, structural problems or potential bugs - or simply have ideas for new features - please open an issue or a pull request. Constructive criticism is explicitly welcome.
+I am not a software developer, and I am happy about every contribution. If you are a software developer and spot weak spots, structural problems or potential bugs or simply have ideas for new features, please open an issue or a pull request.
 
 ---
 
@@ -173,7 +176,7 @@ I am not a professional software developer, and I am happy about every contribut
 
 There is **no guarantee of functionality** - neither for the hardware nor for the firmware. Everything is provided "as is", without any warranty of any kind. I am not an electrical engineer or a professional software developer.
 
-Use this project **entirely at your own risk**. It has been built and tested to the best of my knowledge, but it is not certified, not safety-rated and not intended for any application where failure could cause damage, injury or danger - especially not for safety-critical or unattended high-current operation.
+Use this project **entirely at your own risk**. It has been built and tested to the best of my knowledge, but it is not certified, not safety rated and not intended for any application where failure could cause damage, injury or danger - especially not for safety critical or unattended operation.
 
 If you build and use this device, you are responsible for verifying that it works correctly in your setup and for complying with all applicable regulations.
 
@@ -236,15 +239,16 @@ All available setting keys are listed by `{"cmd":"help"}` and `{"cmd":"get"}`.
 - **Short press:** toggle output
 - **Long press (> 2 s):** reset eFuse
 
+**(Currently not very reative)**
+
 ---
 
 ## Safety
 
-- The device is designed for high currents. At 50 A, the 0.5 mOhm shunt dissipates up to 1.25 W; ensure adequate copper area and cooling.
+- The device is designed for high currents. At 50 A, the 0.5 mOhm shunt dissipates up to 1.25 W + Mosfet heat dissipation.
 - The eFuse is a software protection function and does not replace a certified fuse.
 - Respect the MOSFET voltage and current ratings and provide sufficient cooling for continuous load.
 - The output MOSFETs switch on the low side. When the output is off, VOUT remains connected to VIN through the load path.
-- Calibrate only with suitable reference instruments.
 
 ---
 
