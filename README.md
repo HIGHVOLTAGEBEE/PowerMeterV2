@@ -6,7 +6,7 @@ The device measures voltage, current, power and temperature in real time, switch
 
 <!-- HERO IMAGE -->
 <p align="center">
-<img src="images/hero.png" alt="XT90 Power Meter - assembled device" width="800">
+<img src="images/hero.jpg" alt="XT90 Power Meter - assembled device" width="800">
 </p>
 
 ---
@@ -79,52 +79,52 @@ The device measures voltage, current, power and temperature in real time, switch
 
 ### Overview
 
-| Component | Part | Function |
-| --- | --- | --- |
-| Microcontroller | ESP32-S3-MINI-1-N8 | WiFi AP, web server, control |
-| Measurement IC | INA228 (TI, VSSOP-10) | 20-bit shunt monitor, I2C |
-| Shunt | 0.5 mOhm (5930 package) | Current sensing up to 50 A |
-| Power MOSFETs | 2x CMSL012N10 (TOLL) | Load switch |
-| Gate driver | UCC27517A (SOT-23-5) | MOSFET gate drive |
-| Buck 12 V | LM5164 (SO-8) | Input supply from VIN |
-| Buck 3.3 V | TPS629206 (SOT-583) | MCU / sensor supply |
-| Input | XT90PW panel-mount connector | VIN |
-| Output | XT90PW cable connector | VOUT |
-| USB-C | 16-pin | Programming / serial console |
+| Component       | Part                         | Function                     |
+| --------------- | ---------------------------- | ---------------------------- |
+| Microcontroller | ESP32-S3-MINI-1-N8           | WiFi AP, web server, control |
+| Measurement IC  | INA228 (TI, VSSOP-10)        | 20-bit shunt monitor, I2C    |
+| Shunt           | 0.5 mOhm (5930 package)      | Current sensing up to 50 A   |
+| Power MOSFETs   | 2x CMSL012N10 (TOLL)         | Load switch                  |
+| Gate driver     | UCC27517A (SOT-23-5)         | MOSFET gate drive            |
+| Buck 12 V       | LM5164 (SO-8)                | Input supply from VIN        |
+| Buck 3.3 V      | TPS629206 (SOT-583)          | MCU / sensor supply          |
+| Input           | XT90PW panel-mount connector | VIN                          |
+| Output          | XT90PW cable connector       | VOUT                         |
+| USB-C           | 16-pin                       | Programming / serial console |
 
 The board accepts a single supply rail (VIN) and generates 12 V and 3.3 V on board. The load is switched on the low side by two paralleled TOLL MOSFETs driven by a dedicated gate driver.
 
 ### Pinout (ESP32-S3)
 
-| Pin | Function |
-| --- | --- |
-| GPIO 0 | Boot button (active low) |
-| GPIO 4 | PWM output (dimmer, 10-bit) |
-| GPIO 5 | Status LED (PWM) |
-| GPIO 8 / GPIO 9 | I2C SDA / SCL (INA228, 400 kHz) |
-| GPIO 10 | INA228 ALERT (reserved, currently unused) |
+| Pin             | Function                                  |
+| --------------- | ----------------------------------------- |
+| GPIO 0          | Boot button (active low)                  |
+| GPIO 4          | PWM output (dimmer, 10-bit)               |
+| GPIO 5          | Status LED (PWM)                          |
+| GPIO 8 / GPIO 9 | I2C SDA / SCL (INA228, 400 kHz)           |
+| GPIO 10         | INA228 ALERT (reserved, currently unused) |
 
 ### Schematic, PCB and Assembly
 
 All hardware files are located in the `PCB/` folder:
 
-| Document | File |
-| --- | --- |
-| Schematic | `PCB/schematic.pdf` |
-| Gerber files | `PCB/gerber.zip` (RS-274X) |
-| Bill of materials | `PCB/bom.xlsx` (LCSC part numbers included) |
-| Pick and place | `PCB/pick.xlsx` |
-| 3D model of the PCB | `PCB/3d_model.step` |
+| Document            | File                                        |
+| ------------------- | ------------------------------------------- |
+| Schematic           | `PCB/schematic.pdf`                         |
+| Gerber files        | `PCB/gerber.zip` (RS-274X)                  |
+| Bill of materials   | `PCB/bom.xlsx` (LCSC part numbers included) |
+| Pick and place      | `PCB/pick.xlsx`                             |
+| 3D model of the PCB | `PCB/3d_model.step`                         |
 
 ### Enclosure
 
 The 3D-printable enclosure is included as a 3MF file directly in the repository root. It snaps onto the PCB edge without screws and provides openings for both XT90 connectors, the USB-C port and the status LED.
 
-| Property | Recommendation |
-| --- | --- |
-| File | `Case.3mf` (repository root) |
-| Material | PETG or ABS |
-| Print settings | 3 perimeters, 40 % infill |
+| Property       | Recommendation               |
+| -------------- | ---------------------------- |
+| File           | `Case.3mf` (repository root) |
+| Material       | PETG or ABS                  |
+| Print settings | 3 perimeters, 40 % infill    |
 
 ---
 
@@ -201,14 +201,14 @@ Full details: [SETUP.md](SETUP.md)
 
 Connect to the access point and open `http://192.168.4.1` or `http://meter.local` (with mDNS enabled).
 
-| Page | Content |
-| --- | --- |
-| `/` | Live view: readings, chart, output switch |
-| `/logger` | Peaks/minimums, energy, logging control, Excel export |
-| `/efuse` | Limits, trip report, reset |
-| `/dimmer` | Dimmer slider, CC/CP regulator, gauge |
-| `/config` | WiFi, PWM, smoothing, LED, button, logger, language |
-| `/calibrate` | Calibration wizard |
+| Page         | Content                                               |
+| ------------ | ----------------------------------------------------- |
+| `/`          | Live view: readings, chart, output switch             |
+| `/logger`    | Peaks/minimums, energy, logging control, Excel export |
+| `/efuse`     | Limits, trip report, reset                            |
+| `/dimmer`    | Dimmer slider, CC/CP regulator, gauge                 |
+| `/config`    | WiFi, PWM, smoothing, LED, button, logger, language   |
+| `/calibrate` | Calibration wizard                                    |
 
 ### Serial Console
 
