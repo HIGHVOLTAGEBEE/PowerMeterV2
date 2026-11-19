@@ -6,7 +6,11 @@ The device measures voltage, current, power and temperature in real time, switch
 
 <!-- HERO IMAGE -->
 <p align="center">
-<img src="images/hero.jpg" alt="XT90 Power Meter - assembled device" width="800">
+<img src="media/hero.jpg" alt="XT90 Power Meter - assembled device" width="800">
+</p>
+
+<p align="center">
+  <img src="media/360°.gif" width="800">
 </p>
 
 ---
@@ -77,7 +81,7 @@ The device measures voltage, current, power and temperature in real time, switch
 ## Hardware
 
 <p align="center">
-<img src="images/pcb.jpg" alt="XT90 Power Meter - assembled pcb" width="800">
+<img src="media/pcb.jpg" alt="XT90 Power Meter - assembled pcb" width="800">
 </p>
 
 ### Overview
@@ -118,7 +122,7 @@ All hardware files are located in the `PCB/` folder:
 
 <!-- CASE IMAGE -->
 <p align="center">
-<img src="images/case.jpg" alt="XT90 Power Meter - Case" width="800">
+<img src="media/case.jpg" alt="XT90 Power Meter - Case" width="800">
 </p>
 
 The 3D-printable enclosure is included as a 3MF file directly in the repository root. It snaps onto the PCB edge without screws and provides openings for both XT90 connectors, the USB-C port and the status LED.
